@@ -1,0 +1,563 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+--[[
+
+	Services #1
+
+--]]
+local CoreGui = game:GetService("CoreGui")
+local UserInputService: UserInputService = game:GetService("UserInputService")
+local TweenService: TweenService = game:GetService("TweenService")
+local Debris: Debris = game:GetService("Debris")
+--[[
+
+	System Commands
+
+--]]
+local SystemCommands = {
+	["!Credits"] = "Created by @dredimon on discord.",
+	["?Past"] = "Remake of Rc7, made by an unknown user.",
+	["?Wrapped"] = "Text wrapping has changed!"
+}
+--[[
+
+	Functions #1
+
+--]]
+local function SetupUI(Parent: Instance)
+	--[[
+	
+		Sounds Section
+	
+	--]]
+	local KlikXD: Sound = Instance.new("Sound", Debris)
+	KlikXD.Name = "Klik"
+	KlikXD.SoundId = "rbxassetid://100809160609628"
+	KlikXD.Volume = 1
+
+	local KibirdKlikXD: Sound = Instance.new("Sound", Debris)
+	KibirdKlikXD.Name = "KibirdKlikXD"
+	KibirdKlikXD.SoundId = "rbxassetid://18439146929"
+	KibirdKlikXD.Volume = 3
+
+	local HoverXD: Sound = Instance.new("Sound", Debris)
+	HoverXD.Name = "HoverXD"
+	HoverXD.SoundId = "rbxassetid://70452176150315"
+	HoverXD.Volume = 1
+
+	local ConfirmXD: Sound = Instance.new("Sound", Debris)
+	ConfirmXD.Name = "ConfirmXD"
+	ConfirmXD.SoundId = "rbxassetid://6592039185"
+	ConfirmXD.Volume = 0.5
+	--[[
+	
+		Functions #2
+	
+	--]]
+	local function Cornerify(CornerRadius: UDim, Parent: Instance)
+		local UICorner: UICorner = Instance.new("UICorner", Parent)
+		UICorner.CornerRadius = CornerRadius
+	end
+	local function Gradientify(Color: ColorSequence, Rotation: number, Parent: Instance)
+		local UIGradient: UIGradient = Instance.new("UIGradient", Parent)
+		UIGradient.Color = Color
+		UIGradient.Rotation = Rotation
+	end
+	local function Strokify(ApplyStrokeMode: Enum.ApplyStrokeMode, Color: Color3, Thickness: number, Parent: Instance)
+		local UIStroke: UIStroke = Instance.new("UIStroke", Parent)
+		UIStroke.ApplyStrokeMode = ApplyStrokeMode
+		UIStroke.Color = Color
+		UIStroke.Thickness = Thickness
+		UIStroke.Parent = Parent
+	end
+	local function Paddify(Parent: Instance, PaddingBottom: UDim, PaddingLeft: UDim, PaddingRight: UDim, PaddingTop: UDim)
+		local UIPadding: UIPadding = Instance.new("UIPadding", Parent)
+		UIPadding.PaddingBottom = PaddingBottom
+		UIPadding.PaddingLeft = PaddingLeft
+		UIPadding.PaddingRight = PaddingRight
+		UIPadding.PaddingTop = PaddingTop
+	end
+	local function DisplayText(Type: string, Parent: Instance, Text: string)
+		if Type == "Button" then
+			local Display_Text: TextLabel = Instance.new("TextLabel", Parent)
+			Display_Text.BackgroundTransparency = 1
+			Display_Text.Name = "Display_Text"
+			Display_Text.Position = UDim2.new(0, 0, 0, 0)
+			Display_Text.Size = UDim2.new(1, 0, 1, 0)
+			Display_Text.FontFace = Font.fromName("Nunito", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+			Display_Text.Text = Text
+			Display_Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Display_Text.TextScaled = true
+		end
+	end
+	local function Hover(Type: string, Type2: string, Object: Instance, BackgroundColor: Color3)
+		if Type == "Button" then
+			if Type2 == "In" then
+				game.TweenService:Create(Object, TweenInfo.new(0.23, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0, false, 0), {
+					Rotation = 5
+				}):Play()
+				game.TweenService:Create(Object, TweenInfo.new(0.23, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0, false, 0), {
+					BackgroundColor3 = BackgroundColor
+				}):Play()
+				HoverXD:Play()
+			elseif Type2 == "Out" then
+				game.TweenService:Create(Object, TweenInfo.new(0.23, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0, false, 0), {
+					BackgroundColor3 = BackgroundColor
+				}):Play()
+				game.TweenService:Create(Object, TweenInfo.new(0.23, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0, false, 0), {
+					Rotation = 0
+				}):Play()
+			end
+		end
+	end
+	local function Click(Type: string)
+		if Type:find("eg") then
+			KlikXD:Play()
+		elseif Type:find("x") then
+			ConfirmXD:Play()
+		end
+	end
+	local function Play(Object: Instance)
+		Object:Play()
+	end
+	local function CallProcess(Type: string, Object: Instance)
+		if Type:find("Sys") or Type:find("sys") then
+			Object:Destroy()
+			for every, sound in Debris:GetChildren() do
+				if sound:IsA("Sound") then
+					sound:Destroy()
+				end
+			end
+		end
+	end
+	local function Change(Object: Instance, NewPosition: UDim2)
+		game.TweenService:Create(Object, TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.In, 0, false, 0), {
+			Position = NewPosition
+		}):Play()
+	end
+	--[[
+	
+		Setup
+	
+	--]]
+	local SimpleSevenX: ScreenGui = Instance.new("ScreenGui", Parent)
+	SimpleSevenX.Name = "SimpleSevenX"
+	SimpleSevenX.ResetOnSpawn = false
+	
+	local Main_Frame: Frame = Instance.new("Frame", SimpleSevenX)
+	Main_Frame.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
+	Main_Frame.Name = "Main_Frame"
+	Main_Frame.Position = UDim2.new(0.173, 0, 0.242, 0)
+	Main_Frame.Size = UDim2.new(0, 349, 0, 317)
+	Cornerify(UDim.new(0.05, 0), Main_Frame)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		Main_Frame
+	)
+	Strokify(Enum.ApplyStrokeMode.Contextual, Color3.fromRGB(66, 198, 255), 1.7, Main_Frame)
+	
+	local function Dragify(Object: Instance)
+		local Dragging, DragInput, DragStart, StartPosition
+		local TweeningData = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+		local function Update(Input)
+			local Delta_UpperVariable = Input.Position - DragStart
+			local NewPosition = UDim2.new(StartPosition.X.Scale, StartPosition.X.Offset + Delta_UpperVariable.X, StartPosition.Y.Scale, StartPosition.Y.Offset + Delta_UpperVariable.Y)
+			TweenService:Create(Object, TweeningData, {Position = NewPosition}):Play()
+		end
+		Object.InputBegan:Connect(function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+				Dragging = true
+				DragStart = Input.Position
+				StartPosition = Object.Position
+				Input.Changed:Connect(function()
+					if Input.UserInputState == Enum.UserInputState.End then
+						Dragging = false
+					end
+				end)
+			end
+		end)
+		Object.InputChanged:Connect(function(Input)
+			if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputState.Change then
+				DragInput = Input
+			end
+		end)
+		UserInputService.InputChanged:Connect(function(Input)
+			if Input == DragInput and Dragging then
+				Update(Input)
+			end
+		end)
+	end
+	--[[
+	
+		Dragify
+	
+	--]]
+	Dragify(Main_Frame)
+	--[[
+	
+		Main Children
+	
+	--]]
+	local ExecFrame: ScrollingFrame = Instance.new("ScrollingFrame", Main_Frame)
+	-->>
+		local ExecBox: TextBox = Instance.new("TextBox", ExecFrame)
+		ExecBox.BackgroundTransparency = 1
+		ExecBox.ClearTextOnFocus = false
+		ExecBox.MultiLine = true
+		ExecBox.Name = "ExecBox"
+		ExecBox.Position = UDim2.new(0, 0, 0, 0)
+		ExecBox.Size = UDim2.new(1, 0, 0, 200)
+		ExecBox.FontFace = Font.fromEnum(Enum.Font.Nunito)
+		ExecBox.PlaceholderColor3 = Color3.fromRGB(88, 141, 255)
+		ExecBox.PlaceholderText = "Welcome to Rc7 internal remake!"
+		ExecBox.Text = ""
+		ExecBox.TextColor3 = Color3.fromRGB(51, 122, 255)
+		ExecBox.TextSize = 24
+		ExecBox.TextStrokeTransparency = 1
+		ExecBox.TextXAlignment = Enum.TextXAlignment.Left
+		ExecBox.TextYAlignment = Enum.TextYAlignment.Top
+		Paddify(ExecBox, UDim.new(0, 0), UDim.new(0, 5), UDim.new(0, 0), UDim.new(0, 10))
+		
+	local ClearBtn: TextButton = Instance.new("TextButton", Main_Frame)
+	local CloseBtn: TextButton = Instance.new("TextButton", Main_Frame)
+	local ExecuteBtn: TextButton = Instance.new("TextButton", Main_Frame)
+	local MinimizeBtn: TextButton = Instance.new("TextButton", Main_Frame)
+	local OutputLabel: TextLabel = Instance.new("TextLabel", Main_Frame)
+	
+	local ClickedTimes = 1
+	local ClickedOnce = false
+	local ClickedTwice = false
+	local OpenBtn: TextButton = Instance.new("TextButton", SimpleSevenX)
+	--[[
+	
+		Editing
+	
+	--]]
+	--[[
+	
+		Execute Frame
+	
+	--]]
+	ExecFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ExecFrame.Name = "ExecFrame"
+	ExecFrame.Position = UDim2.new(0.034, 0, 0.2, 0)
+	ExecFrame.Size = UDim2.new(0, 326, 0, 200)
+	ExecFrame.ScrollBarImageTransparency = 1
+	Cornerify(UDim.new(0.05, 0), ExecFrame)
+	Strokify(Enum.ApplyStrokeMode.Contextual, Color3.fromRGB(51, 122, 255), 1.7, ExecFrame)
+	--[[
+	
+		Clear Button
+	
+	--]]
+	ClearBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	ClearBtn.Name = "ClearBtn"
+	ClearBtn.Position = UDim2.new(0.679, 0, 0.858, 0)
+	ClearBtn.Size = UDim2.new(0, 99, 0, 20)
+	ClearBtn.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	ClearBtn.FontFace.Bold = true
+	ClearBtn.Text = ""
+	ClearBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	ClearBtn.TextScaled = true
+	Cornerify(UDim.new(0.15, 0), ClearBtn)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		ClearBtn
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, ClearBtn)
+	DisplayText("Button", ClearBtn, "Clear")
+	--[[
+	
+		Execute Button
+	
+	--]]
+	ExecuteBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	ExecuteBtn.Name = "ExecuteBtn"
+	ExecuteBtn.Position = UDim2.new(0.358, 0, 0.858, 0)
+	ExecuteBtn.Size = UDim2.new(0, 99, 0, 20)
+	ExecuteBtn.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	ExecuteBtn.FontFace.Bold = true
+	ExecuteBtn.Text = ""
+	ExecuteBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	ExecuteBtn.TextScaled = true
+	ExecuteBtn:SetAttribute("Debounce", false)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		ExecuteBtn
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, ExecuteBtn)
+	DisplayText("Button", ExecuteBtn, "ExecuteBtn")
+	--[[
+	
+		Close Button
+	
+	--]]
+	CloseBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	CloseBtn.Name = "CloseBtn"
+	CloseBtn.Position = UDim2.new(0.848, 0, 0.094, 0)
+	CloseBtn.Size = UDim2.new(0, 41, 0, 24)
+	CloseBtn.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	CloseBtn.FontFace.Bold = true
+	CloseBtn.Text = ""
+	CloseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CloseBtn.TextScaled = true
+	Cornerify(UDim.new(0.15, 0), CloseBtn)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		CloseBtn
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, CloseBtn)
+	DisplayText("Button", CloseBtn, "X")
+	--[[
+	
+		Minimize Button
+	
+	--]]
+	MinimizeBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	MinimizeBtn.Name = "MinimizeBtn"
+	MinimizeBtn.Position = UDim2.new(0.679, 0, 0.094, 0)
+	MinimizeBtn.Size = UDim2.new(0, 41, 0, 24)
+	MinimizeBtn.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	MinimizeBtn.FontFace.Bold = true
+	MinimizeBtn.Text = ""
+	MinimizeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	MinimizeBtn.TextScaled = true
+	Cornerify(UDim.new(0.15, 0), MinimizeBtn)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		MinimizeBtn
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, MinimizeBtn)
+	DisplayText("Button", MinimizeBtn, "-")
+	--[[
+	
+		Open Button
+	
+	--]]
+	OpenBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	OpenBtn.Name = "OpenBtn"
+	OpenBtn.Position = UDim2.new(0.005, 0, 1.2, 0)
+	OpenBtn.Size = UDim2.new(0, 58, 0, 58)
+	OpenBtn.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	OpenBtn.FontFace.Bold = true
+	OpenBtn.Text = ""
+	OpenBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	OpenBtn.TextScaled = true
+	Dragify(OpenBtn)
+	Cornerify(UDim.new(0.15, 0), OpenBtn)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		OpenBtn
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, OpenBtn)
+	DisplayText("Button", OpenBtn, "Rc⁷")
+	--[[
+	
+		Open Label
+	
+	--]]
+	OutputLabel.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	OutputLabel.Name = "OutputLabel"
+	OutputLabel.Position = UDim2.new(0.034, 0, 0.022, 0)
+	OutputLabel.Size = UDim2.new(0, 212, 0, 46)
+	OutputLabel.FontFace = Font.fromEnum(Enum.Font.Nunito)
+	OutputLabel.FontFace.Bold = true
+	OutputLabel.Text = "Output!"
+	OutputLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	OutputLabel.TextScaled = true
+	Cornerify(UDim.new(0.15, 0), OutputLabel)
+	Gradientify(
+		ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(148, 200, 255)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+		},
+		-90,
+		OutputLabel
+	)
+	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, OutputLabel)
+	--[[
+	
+		Functions #3
+	
+	--]]
+	--[[
+	
+		Execute Box
+	
+	--]]
+	ExecBox:GetPropertyChangedSignal("Text"):Connect(function()
+		Play(KibirdKlikXD)
+	end)
+	--[[
+	
+		Clear Button
+	
+	--]]
+	ClearBtn.MouseButton1Click:Connect(function()
+		Click("Regular")
+		ExecBox.Text = ""
+	end)
+	ClearBtn.MouseEnter:Connect(function()
+		Hover("Button", "In", ClearBtn, Color3.fromRGB(165, 64, 64))
+	end)
+	ClearBtn.MouseLeave:Connect(function()
+		Hover("Button", "Out", ClearBtn, Color3.fromRGB(85, 159, 255))
+	end)
+	--[[
+	
+		Execute Button
+	
+	--]]
+	ExecuteBtn.MouseButton1Click:Connect(function()
+		if ExecuteBtn:GetAttribute("Debounce") == true then
+			print("Debounce active.")
+		else
+			local Split = string.split(ExecBox.Text, " ")
+			local Command = Split[1]
+			
+			if Command == "!Credits" or Command == "!credits" or Command == "!Creds" or Command == "!creds" then
+				print(SystemCommands["!Credits"])
+				ExecBox.Text = "Check console!"
+				OutputLabel.Text = "Check console!"
+				task.wait(1)
+				ExecBox.Text = "!creds"
+				OutputLabel.Text = "Output!"
+			elseif Command == "?Past" or Command == "?past" then
+				print(SystemCommands["?Past"])
+				ExecBox.Text = "Check console!"
+				OutputLabel.Text = "Check console!"
+				task.wait(1)
+				ExecBox.Text = "!creds"
+				OutputLabel.Text = "Output!"
+			elseif Command == "?Wrapped" or Command == "?wrapped" or Command == "?Wrap" or Command == "?wrap" then
+				local Indicator = Split[2]
+				if Indicator == "true" then
+					ExecBox.TextWrapped = true
+					print(SystemCommands["?Wrapped"])
+					ExecBox.Text = SystemCommands["?Wrapped"]
+					OutputLabel.Text = SystemCommands["?Wrapped"]
+					task.wait(1)
+					ExecBox.Text = Command .. " true"
+					OutputLabel.Text = "Output!"
+				elseif Indicator == "false" then
+					ExecBox.TextWrapped = false
+					print(SystemCommands["?Wrapped"])
+					ExecBox.Text = SystemCommands["?Wrapped"]
+					OutputLabel.Text = SystemCommands["?Wrapped"]
+					task.wait(1)
+					ExecBox.Text = Command .. " false"
+					OutputLabel.Text = "Output!"
+				end
+			elseif Command == "?Inf" or Command == "?inf" then
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+				print("Infinite yield executed!")
+				ExecBox.Text = "Infinite yield executed!"
+				OutputLabel.Text = "Infinite yield executed!"
+				task.wait(1)
+				ExecBox.Text = Command
+				OutputLabel.Text = "Output!"
+			else
+				ExecuteBtn:SetAttribute("Debounce", true)
+				Click("Regular")
+				local Success, Error = pcall(function()
+					loadstring(ExecBox.Text)
+				end)
+				if Success then
+					loadstring(ExecBox.Text)()
+				elseif Error then
+					print("Error was called! Error Feedback: " .. Error)
+					OutputLabel.Text = "Error was called! Error Feedback: " .. Error
+					task.wait(1)
+					OutputLabel.Text = "Output!"
+				end
+				task.wait(1)
+				ExecuteBtn:SetAttribute("Debounce", false)
+			end
+		end
+	end)
+	ExecuteBtn.MouseEnter:Connect(function()
+		Hover("Button", "In", ExecuteBtn, Color3.fromRGB(65, 186, 71))
+	end)
+	ExecuteBtn.MouseLeave:Connect(function()
+		Hover("Button", "Out", ExecuteBtn, Color3.fromRGB(85, 159, 255))
+	end)
+	--[[
+	
+		Close Button
+	
+	--]]
+	CloseBtn.MouseButton1Click:Connect(function()
+		Click("Regular")
+		CallProcess("System", SimpleSevenX)
+	end)
+	CloseBtn.MouseEnter:Connect(function()
+		Hover("Button", "In", CloseBtn, Color3.fromRGB(255, 62, 62))
+	end)
+	CloseBtn.MouseLeave:Connect(function()
+		Hover("Button", "Out", CloseBtn, Color3.fromRGB(85, 159, 255))
+	end)
+	--[[
+	
+		Minimize Button
+	
+	--]]
+	MinimizeBtn.MouseButton1Click:Connect(function()
+		Click("Regular")
+		Change(OpenBtn, UDim2.new(0.005, 0, 0.909, 0))
+		Change(Main_Frame, UDim2.new(Main_Frame.Position.X.Scale, Main_Frame.Position.X.Offset, 1.5, 0))
+	end)
+	MinimizeBtn.MouseEnter:Connect(function()
+		Hover("Button", "In", MinimizeBtn, Color3.fromRGB(247, 153, 42))
+	end)
+	MinimizeBtn.MouseLeave:Connect(function()
+		Hover("Button", "Out", MinimizeBtn, Color3.fromRGB(85, 159, 255))
+	end)
+	--[[
+	
+		Open Button
+	
+	--]]
+	OpenBtn.MouseButton1Click:Connect(function()
+		Click("Regular")
+		if ClickedTimes == 2 then
+			Change(OpenBtn, UDim2.new(0.005, 0, 1.2, 0))
+			Change(Main_Frame, UDim2.new(Main_Frame.Position.X.Scale, Main_Frame.Position.X.Offset, 0.242, 0))
+			ClickedTimes = 1
+		else
+			ClickedTimes = ClickedTimes + 1
+		end
+	end)
+	OpenBtn.MouseEnter:Connect(function()
+		Hover("Button", "In", OpenBtn, Color3.fromRGB(50, 114, 255))
+	end)
+	OpenBtn.MouseLeave:Connect(function()
+		Hover("Button", "Out", OpenBtn, Color3.fromRGB(85, 159, 255))
+	end)
+end
+--|
+SetupUI(CoreGui)
