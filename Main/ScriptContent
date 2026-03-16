@@ -550,6 +550,9 @@ local function SetupUI(Parent: Instance)
 			end)
 		else
 			ClickedTimes = ClickedTimes + 1
+			task.delay(3, function()
+				ClickedTimes = 1
+			end)
 		end
 	end)
 	OpenBtn.MouseEnter:Connect(function()
