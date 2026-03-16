@@ -545,6 +545,9 @@ local function SetupUI(Parent: Instance)
 			Change(OpenBtn, UDim2.new(0.005, 0, 1.2, 0))
 			Change(Main_Frame, UDim2.new(Main_Frame.Position.X.Scale, Main_Frame.Position.X.Offset, 0.242, 0))
 			ClickedTimes = 1
+			task.delay(3, function()
+				ClickedTimes = 1
+			end)
 		else
 			ClickedTimes = ClickedTimes + 1
 		end
