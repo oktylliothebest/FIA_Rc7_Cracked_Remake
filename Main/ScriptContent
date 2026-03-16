@@ -554,6 +554,9 @@ local function SetupUI(Parent: Instance)
 				ClickedTimes = 1
 			end)
 		end
+		task.delay(3, function()
+			ClickedTimes = 1
+		end)
 	end)
 	OpenBtn.MouseEnter:Connect(function()
 		Hover("Button", "In", OpenBtn, Color3.fromRGB(50, 114, 255))
