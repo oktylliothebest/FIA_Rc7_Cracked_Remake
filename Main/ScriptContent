@@ -9,16 +9,6 @@ local TweenService: TweenService = game:GetService("TweenService")
 local Debris: Debris = game:GetService("Debris")
 --[[
 
-	System Commands
-
---]]
-local SystemCommands = {
-	["!Credits"] = "Created by @dredimon on discord.",
-	["?Past"] = "Remake of Rc7, made by an unknown user.",
-	["?Wrapped"] = "Text wrapping has changed!"
-}
---[[
-
 	Functions #1
 
 --]]
@@ -202,23 +192,23 @@ local function SetupUI(Parent: Instance)
 	--]]
 	local ExecFrame: ScrollingFrame = Instance.new("ScrollingFrame", Main_Frame)
 	-->>
-	local ExecBox: TextBox = Instance.new("TextBox", ExecFrame)
-	ExecBox.BackgroundTransparency = 1
-	ExecBox.ClearTextOnFocus = false
-	ExecBox.MultiLine = true
-	ExecBox.Name = "ExecBox"
-	ExecBox.Position = UDim2.new(0, 0, 0, 0)
-	ExecBox.Size = UDim2.new(1, 0, 0, 200)
-	ExecBox.FontFace = Font.fromEnum(Enum.Font.Nunito)
-	ExecBox.PlaceholderColor3 = Color3.fromRGB(88, 141, 255)
-	ExecBox.PlaceholderText = "Welcome to Rc7 internal remake!"
-	ExecBox.Text = ""
-	ExecBox.TextColor3 = Color3.fromRGB(51, 122, 255)
-	ExecBox.TextSize = 24
-	ExecBox.TextStrokeTransparency = 1
-	ExecBox.TextXAlignment = Enum.TextXAlignment.Left
-	ExecBox.TextYAlignment = Enum.TextYAlignment.Top
-	Paddify(ExecBox, UDim.new(0, 0), UDim.new(0, 5), UDim.new(0, 0), UDim.new(0, 10))
+		local ExecBox: TextBox = Instance.new("TextBox", ExecFrame)
+		ExecBox.BackgroundTransparency = 1
+		ExecBox.ClearTextOnFocus = false
+		ExecBox.MultiLine = true
+		ExecBox.Name = "ExecBox"
+		ExecBox.Position = UDim2.new(0, 0, 0, 0)
+		ExecBox.Size = UDim2.new(1, 0, 0, 200)
+		ExecBox.FontFace = Font.fromEnum(Enum.Font.Nunito)
+		ExecBox.PlaceholderColor3 = Color3.fromRGB(88, 141, 255)
+		ExecBox.PlaceholderText = "Welcome to Rc7 internal remake!"
+		ExecBox.Text = ""
+		ExecBox.TextColor3 = Color3.fromRGB(51, 122, 255)
+		ExecBox.TextSize = 24
+		ExecBox.TextStrokeTransparency = 1
+		ExecBox.TextXAlignment = Enum.TextXAlignment.Left
+		ExecBox.TextYAlignment = Enum.TextYAlignment.Top
+		Paddify(ExecBox, UDim.new(0, 0), UDim.new(0, 5), UDim.new(0, 0), UDim.new(0, 10))
 
 	local ClearBtn: TextButton = Instance.new("TextButton", Main_Frame)
 	local CloseBtn: TextButton = Instance.new("TextButton", Main_Frame)
@@ -431,69 +421,74 @@ local function SetupUI(Parent: Instance)
 	
 	--]]
 	ExecuteBtn.MouseButton1Click:Connect(function()
+		Play(KlikXD)
 		if ExecuteBtn:GetAttribute("Debounce") == true then
 			print("Debounce active.")
 		else
-			local Split = string.split(ExecBox.Text, " ")
-			local Command = Split[1]
-
-			if Command == "!Credits" or Command == "!credits" or Command == "!Creds" or Command == "!creds" then
-				print(SystemCommands["!Credits"])
-				ExecBox.Text = "Check console!"
-				OutputLabel.Text = "Check console!"
-				task.wait(1)
-				ExecBox.Text = "!creds"
-				OutputLabel.Text = "Output!"
-			elseif Command == "?Past" or Command == "?past" then
-				print(SystemCommands["?Past"])
-				ExecBox.Text = "Check console!"
-				OutputLabel.Text = "Check console!"
-				task.wait(1)
-				ExecBox.Text = "!creds"
-				OutputLabel.Text = "Output!"
-			elseif Command == "!Wrapped" or Command == "!wrapped" or Command == "!Wrap" or Command == "!wrap" then
-				local Indicator = Split[2]
-				if Indicator == "true" then
-					ExecBox.TextWrapped = true
-					print(SystemCommands["?Wrapped"])
-					ExecBox.Text = SystemCommands["?Wrapped"]
-					OutputLabel.Text = SystemCommands["?Wrapped"]
-					task.wait(1)
-					ExecBox.Text = Command .. " true"
-					OutputLabel.Text = "Output!"
-				elseif Indicator == "false" then
-					ExecBox.TextWrapped = false
-					print(SystemCommands["?Wrapped"])
-					ExecBox.Text = SystemCommands["?Wrapped"]
-					OutputLabel.Text = SystemCommands["?Wrapped"]
-					task.wait(1)
-					ExecBox.Text = Command .. " false"
-					OutputLabel.Text = "Output!"
-				end
-			elseif Command == "?Inf" or Command == "?inf" then
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-				print("Infinite yield executed!")
-				ExecBox.Text = "Infinite yield executed!"
-				OutputLabel.Text = "Infinite yield executed!"
-				task.wait(1)
-				ExecBox.Text = Command
-				OutputLabel.Text = "Output!"
-			else
+			local NeededVariables = {["Split"] = string.split(ExecBox.Text, " "), ["prefix"] = "/", ["Input"] = ExecBox.Text}
+			local Command = NeededVariables["Split"][1]
+			if Command == NeededVariables["prefix"] .. "Credits" or Command == NeededVariables["prefix"] .. "credits" or Command == NeededVariables["prefix"] .. "Creds" or Command == NeededVariables["prefix"] .. "creds" then
 				ExecuteBtn:SetAttribute("Debounce", true)
-				Click("Regular")
-				local Success, Error = pcall(function()
-					loadstring(ExecBox.Text)
-				end)
-				if Success then
-					loadstring(ExecBox.Text)()
-				elseif Error then
-					print("Error was called! Error Feedback: " .. Error)
-					OutputLabel.Text = "Error was called! Error Feedback: " .. Error
-					task.wait(1)
-					OutputLabel.Text = "Output!"
-				end
+				ExecBox.Text = [[
+				Создавал по Sevar K.
+				Made by Sevar K.
+				--
+				Дискорд: @dredimon
+				Discord: @dredimon
+				]]
 				task.wait(1)
 				ExecuteBtn:SetAttribute("Debounce", false)
+				ExecBox.Text = ""
+			elseif Command == NeededVariables["prefix"] .. "Wrap" or Command == NeededVariables["prefix"] .. "wrap" then
+				ExecuteBtn:SetAttribute("Debounce", true)
+				if ExecBox.TextWrapped == true then
+					ExecuteBtn:SetAttribute("Debounce", true)
+					ExecBox.TextWrapped = false
+					ExecBox.Text = [[
+TextWrapped неполноценный.
+TextWrapped has been disabled.
+					]]
+					task.wait(1)
+					ExecuteBtn:SetAttribute("Debounce", false)
+					ExecBox.Text = ""
+				elseif ExecBox.TextWrapped == false then
+					ExecuteBtn:SetAttribute("Debounce", true)
+					ExecBox.TextWrapped = true
+					ExecBox.Text = [[
+TextWrapped Активать.
+TextWrapped has been activated.
+					]]
+					task.wait(1)
+					ExecuteBtn:SetAttribute("Debounce", false)
+					ExecBox.Text = ""
+				end
+			elseif Command == NeededVariables["prefix"] .. "Inf" or Command == NeededVariables["prefix"] .. "inf" then
+				ExecuteBtn:SetAttribute("Debounce", true)
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+				task.wait(1)
+				ExecuteBtn:SetAttribute("Debounce", false)
+			else
+				--//pcall
+				local Success, Failure = pcall(function()
+					loadstring(ExecBox.Text)()
+				end)
+				--//Success
+				if Success then
+					ExecuteBtn:SetAttribute("Debounce", true)
+					loadstring(ExecBox.Text)
+					task.wait(1)
+					ExecuteBtn:SetAttribute("Debounce", false)
+				elseif Failure then
+					ExecuteBtn:SetAttribute("Debounce", true)
+					ExecBox.TextWrapped = true
+					ExecBox.Text = [[
+Ошибка: ]] .. Failure .. [[
+Error : ]] .. Failure
+					task.wait(1)
+					ExecuteBtn:SetAttribute("Debounce", false)
+					ExecBox.TextWrapped = false
+					ExecBox.Text = ""
+				end
 			end
 		end
 	end)
