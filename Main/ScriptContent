@@ -179,6 +179,63 @@ local function SetupUI(Parent: Instance)
 			end
 		end)
 	end
+	local function ChangeTheme(Indicator: any, Type: string)
+		if Type == "Dark" or Type == "dark" or Type == "Black" or Type == "black" or Type == "Emo" or Type == "emo" then
+			if typeof(Indicator) == "Instance" then
+				--[[
+			
+					Instance Main
+			
+				--]]
+				if Indicator:IsA("TextLabel") or Indicator:IsA("TextButton") then
+					Indicator.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+					Indicator.TextColor3 = Color3.fromRGB(255, 255, 255)
+				elseif Indicator:IsA("TextBox") then
+					Indicator.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+					Indicator.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+					Indicator.TextColor3 = Color3.fromRGB(255, 255, 255)
+				end
+				--[[
+			
+					UI Designs
+			
+				--]]
+				for _, obj in Indicator:GetDescendants() do
+					if obj:IsA("UIGradient") then
+						obj.Color = ColorSequence.new{
+							ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+							ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0))
+						}
+					elseif obj:IsA("UIStroke") then
+						obj.Color = Color3.fromRGB(0, 0, 0)
+					end
+				end
+			elseif typeof(Indicator) == "string" then
+				if Indicator == "System" or Indicator == "system" or Indicator == "Sys" or Indicator == "sys" or Indicator == "All" or Indicator == "all" then
+					for _, obj in SimpleSevenX:GetDescendants() do
+						if obj:IsA("TextLabel") or obj:IsA("TextButton") then
+							obj.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+							obj.TextColor3 = Color3.fromRGB(255, 255, 255)
+						elseif obj:IsA("TextBox") then
+							obj.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+							obj.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+							obj.TextColor3 = Color3.fromRGB(255, 255, 255)
+							if obj.Name == "ExecBox" then
+								obj.PlaceholderText = "#include <ssx.h>...Command"
+							end
+						elseif obj:IsA("UIStroke") then
+							obj.Color = Color3.fromRGB(0, 0, 0)
+						elseif obj:IsA("UIGradient") then
+							obj.Color = ColorSequence.new{
+								ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 0, 0)),
+								ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+							}
+						end
+					end
+				end
+			end
+		end
+	end
 	--[[
 	
 		Dragify
@@ -215,10 +272,9 @@ local function SetupUI(Parent: Instance)
 	local ExecuteBtn: TextButton = Instance.new("TextButton", Main_Frame)
 	local MinimizeBtn: TextButton = Instance.new("TextButton", Main_Frame)
 	local OutputLabel: TextLabel = Instance.new("TextLabel", Main_Frame)
-
+	local Background: ImageLabel = Instance.new("ImageLabel", Main_Frame)
+	
 	local ClickedTimes = 1
-	local ClickedOnce = false
-	local ClickedTwice = false
 	local OpenBtn: TextButton = Instance.new("TextButton", SimpleSevenX)
 	--[[
 	
@@ -389,6 +445,18 @@ local function SetupUI(Parent: Instance)
 	Strokify(Enum.ApplyStrokeMode.Border, Color3.fromRGB(64, 122, 222), 1.6, OutputLabel)
 	--[[
 	
+		Background Label
+	
+	--]]
+	Background.BackgroundTransparency = 1
+	Background.Name = "Background"
+	Background.Position = UDim2.new(0, 0, 0, 0)
+	Background.Size = UDim2.new(0, 349, 0, 317)
+	Background.Image = ""
+	Background.ImageColor3 = Color3.fromRGB(255, 255, 255)
+	Background.ImageTransparency = 0.8
+	--[[
+	
 		Functions #3
 	
 	--]]
@@ -465,6 +533,28 @@ TextWrapped has been activated.
 			elseif Command == NeededVariables["prefix"] .. "Inf" or Command == NeededVariables["prefix"] .. "inf" then
 				ExecuteBtn:SetAttribute("Debounce", true)
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+				task.wait(1)
+				ExecuteBtn:SetAttribute("Debounce", false)
+			elseif Command == NeededVariables["prefix"] .. "Background" or Command == NeededVariables["prefix"] .. "background" or Command == NeededVariables["prefix"] .. "BG" or Command == NeededVariables["prefix"] .. "bg" then
+				local NewBackground = NeededVariables["Split"][2]
+				ExecuteBtn:SetAttribute("Debounce", true)
+				if NewBackground:find("rbxassetid://") then
+					Background.Image = NewBackground
+				elseif not NewBackground:find("rbxassetid://") then
+					if NewBackground == "Default" or NewBackground == "default" or NewBackground == "None" or NewBackground == "none" then
+						Background.Image = ""
+					else
+						if typeof(tonumber(NewBackground)) == "number" then
+							Background.Image = "rbxassetid://" .. NewBackground
+						end
+					end
+				end
+				task.wait(1)
+				ExecuteBtn:SetAttribute("Debounce", false)
+			elseif Command == NeededVariables["prefix"] .. "Prefix" or Command == NeededVariables["prefix"] .. "prefix" then
+				local NewPrefix = NeededVariables["Split"][2]
+				ExecuteBtn:SetAttribute("Debounce", true)
+				NeededVariables["prefix"] = NewPrefix
 				task.wait(1)
 				ExecuteBtn:SetAttribute("Debounce", false)
 			else
