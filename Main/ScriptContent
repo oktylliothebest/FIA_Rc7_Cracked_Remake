@@ -298,7 +298,7 @@ local function SetupUI(Parent: Instance)
 		Clear Button
 	
 	--]]
-	ClearBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	ClearBtn.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
 	ClearBtn.Name = "ClearBtn"
 	ClearBtn.Position = UDim2.new(0.679, 0, 0.858, 0)
 	ClearBtn.Size = UDim2.new(0, 99, 0, 20)
@@ -323,7 +323,7 @@ local function SetupUI(Parent: Instance)
 		Execute Button
 	
 	--]]
-	ExecuteBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	ExecuteBtn.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
 	ExecuteBtn.Name = "ExecuteBtn"
 	ExecuteBtn.Position = UDim2.new(0.358, 0, 0.858, 0)
 	ExecuteBtn.Size = UDim2.new(0, 99, 0, 20)
@@ -348,7 +348,7 @@ local function SetupUI(Parent: Instance)
 		Close Button
 	
 	--]]
-	CloseBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	CloseBtn.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
 	CloseBtn.Name = "CloseBtn"
 	CloseBtn.Position = UDim2.new(0.848, 0, 0.094, 0)
 	CloseBtn.Size = UDim2.new(0, 41, 0, 24)
@@ -373,7 +373,7 @@ local function SetupUI(Parent: Instance)
 		Minimize Button
 	
 	--]]
-	MinimizeBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	MinimizeBtn.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
 	MinimizeBtn.Name = "MinimizeBtn"
 	MinimizeBtn.Position = UDim2.new(0.679, 0, 0.094, 0)
 	MinimizeBtn.Size = UDim2.new(0, 41, 0, 24)
@@ -398,7 +398,7 @@ local function SetupUI(Parent: Instance)
 		Open Button
 	
 	--]]
-	OpenBtn.BackgroundColor3 = Color3.fromRGB(85, 159, 255)
+	OpenBtn.BackgroundColor3 = Color3.fromRGB(102, 176, 255)
 	OpenBtn.Name = "OpenBtn"
 	OpenBtn.Position = UDim2.new(0.005, 0, 1.2, 0)
 	OpenBtn.Size = UDim2.new(0, 58, 0, 58)
@@ -482,7 +482,7 @@ local function SetupUI(Parent: Instance)
 		Hover("Button", "In", ClearBtn, Color3.fromRGB(165, 64, 64))
 	end)
 	ClearBtn.MouseLeave:Connect(function()
-		Hover("Button", "Out", ClearBtn, Color3.fromRGB(85, 159, 255))
+		Hover("Button", "Out", ClearBtn, Color3.fromRGB(102, 176, 255))
 	end)
 	--[[
 	
@@ -587,7 +587,7 @@ Error : ]] .. Failure
 		Hover("Button", "In", ExecuteBtn, Color3.fromRGB(65, 186, 71))
 	end)
 	ExecuteBtn.MouseLeave:Connect(function()
-		Hover("Button", "Out", ExecuteBtn, Color3.fromRGB(85, 159, 255))
+		Hover("Button", "Out", ExecuteBtn, Color3.fromRGB(102, 176, 255))
 	end)
 	--[[
 	
@@ -602,7 +602,7 @@ Error : ]] .. Failure
 		Hover("Button", "In", CloseBtn, Color3.fromRGB(255, 62, 62))
 	end)
 	CloseBtn.MouseLeave:Connect(function()
-		Hover("Button", "Out", CloseBtn, Color3.fromRGB(85, 159, 255))
+		Hover("Button", "Out", CloseBtn, Color3.fromRGB(102, 176, 255))
 	end)
 	--[[
 	
@@ -618,7 +618,7 @@ Error : ]] .. Failure
 		Hover("Button", "In", MinimizeBtn, Color3.fromRGB(247, 153, 42))
 	end)
 	MinimizeBtn.MouseLeave:Connect(function()
-		Hover("Button", "Out", MinimizeBtn, Color3.fromRGB(85, 159, 255))
+		Hover("Button", "Out", MinimizeBtn, Color3.fromRGB(102, 176, 255))
 	end)
 	--[[
 	
@@ -631,14 +631,8 @@ Error : ]] .. Failure
 			Change(OpenBtn, UDim2.new(0.005, 0, 1.2, 0))
 			Change(Main_Frame, UDim2.new(Main_Frame.Position.X.Scale, Main_Frame.Position.X.Offset, 0.242, 0))
 			ClickedTimes = 1
-			task.delay(3, function()
-				ClickedTimes = 1
-			end)
 		else
 			ClickedTimes = ClickedTimes + 1
-			task.delay(3, function()
-				ClickedTimes = 1
-			end)
 		end
 		task.delay(3, function()
 			ClickedTimes = 1
@@ -648,7 +642,7 @@ Error : ]] .. Failure
 		Hover("Button", "In", OpenBtn, Color3.fromRGB(50, 114, 255))
 	end)
 	OpenBtn.MouseLeave:Connect(function()
-		Hover("Button", "Out", OpenBtn, Color3.fromRGB(85, 159, 255))
+		Hover("Button", "Out", OpenBtn, Color3.fromRGB(102, 176, 255))
 	end)
 end
 --|
