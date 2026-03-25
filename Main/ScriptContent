@@ -72,7 +72,7 @@ local function SetupUI(Parent: Instance)
 			Display_Text.Name = "Display_Text"
 			Display_Text.Position = UDim2.new(0, 0, 0, 0)
 			Display_Text.Size = UDim2.new(1, 0, 1, 0)
-			Display_Text.FontFace = Font.fromName("Nunito", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+			Display_Text.FontFace = Font.fromName("Nunito", Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
 			Display_Text.Text = Text
 			Display_Text.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Display_Text.TextScaled = true
@@ -256,7 +256,7 @@ local function SetupUI(Parent: Instance)
 		ExecBox.Name = "ExecBox"
 		ExecBox.Position = UDim2.new(0, 0, 0, 0)
 		ExecBox.Size = UDim2.new(1, 0, 0, 200)
-		ExecBox.FontFace = Font.fromEnum(Enum.Font.Nunito)
+		ExecBox.FontFace = Font.fromName("Nunito", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 		ExecBox.PlaceholderColor3 = Color3.fromRGB(88, 141, 255)
 		ExecBox.PlaceholderText = "Welcome to Rc7 internal remake!"
 		ExecBox.Text = ""
@@ -498,11 +498,11 @@ local function SetupUI(Parent: Instance)
 			if Command == NeededVariables["prefix"] .. "Credits" or Command == NeededVariables["prefix"] .. "credits" or Command == NeededVariables["prefix"] .. "Creds" or Command == NeededVariables["prefix"] .. "creds" then
 				ExecuteBtn:SetAttribute("Debounce", true)
 				ExecBox.Text = [[
-				Создавал по Sevar K.
-				Made by Sevar K.
-				--
-				Дискорд: @dredimon
-				Discord: @dredimon
+Создавал по Sevar K.
+Made by Sevar K.
+--
+Дискорд: @dredimon
+Discord: @dredimon
 				]]
 				task.wait(1)
 				ExecuteBtn:SetAttribute("Debounce", false)
