@@ -455,6 +455,7 @@ local function SetupUI(Parent: Instance)
 	Background.Image = ""
 	Background.ImageColor3 = Color3.fromRGB(255, 255, 255)
 	Background.ImageTransparency = 0.8
+	Cornerify(UDim.new(0.05, 0), Background)
 	--[[
 	
 		Functions #3
